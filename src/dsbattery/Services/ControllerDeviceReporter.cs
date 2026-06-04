@@ -16,7 +16,7 @@ public class ControllerDeviceReporter : IBatteryReporter
         _deviceProvider = deviceProvider;
     }
 
-    public async Task<string> GetBatteryReport()
+    public async Task<string> GetBatteryReport(string icon)
     {
         var dualshockDevices = await _deviceProvider.QueryConnected(DeviceKind.Dualshock4);
         var dualsenseDevices = await _deviceProvider.QueryConnected(DeviceKind.Dualsense);
@@ -29,7 +29,7 @@ public class ControllerDeviceReporter : IBatteryReporter
         for (int i = 0; i < sonyDevices.Count; i++)
         {
             var device = sonyDevices[i];
-            AppendDevice(result, device);
+            AppendDevice(result, device, icon);
 
             if (sonyDevices.Count > 1 && sonyDevices.Count != i + 1)
             {
@@ -40,9 +40,9 @@ public class ControllerDeviceReporter : IBatteryReporter
         return result.ToString();
     }
 
-    private static void AppendDevice(StringBuilder builder, ControllerDevice device)
+    private static void AppendDevice(StringBuilder builder, ControllerDevice device, string icon)
     {
-        builder.Append("🎮");
+        builder.Append(icon);
 
         if (device.Status == DeviceStatus.Charging)
         {

@@ -4,6 +4,6 @@ namespace dsbattery.Interfaces
 {
     public interface IBatteryReporter
     {
-        Task<string> GetBatteryReport();
+        Task<string> GetBatteryReport(string icon);
     }
 }

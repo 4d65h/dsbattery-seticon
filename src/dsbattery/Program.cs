@@ -13,7 +13,12 @@ internal static class Program
     private async static Task Main(string[] args)
     {
         var reporter = new ControllerDeviceReporter(_deviceProvider);
-        var result = await reporter.GetBatteryReport();
+	string result;
+        if (args?.Length > 0 && args[0] != "-d") {
+	    result = await reporter.GetBatteryReport(args[0]);
+	} else {
+            result = await reporter.GetBatteryReport("🎮");
+	}
 
         Console.WriteLine(result);
 
